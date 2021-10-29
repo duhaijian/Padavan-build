@@ -38,8 +38,13 @@ jobs:
         mkdir -p /opt/images/
     - name: Build Firmware
       env:
-        TNAME: K2P-5.0
+        TNAME: HC5661A
       run: |
+        sed -i 's/https://bintray.com/htop/source/download_file?file_path=htop-3.0.2.tar.gz/https://codeload.github.com/htop-dev/htop/tar.gz/refs/tags/3.0.2/g' /opt/rt-n56u/trunk/user/htop/Makefile
+        sed -i 'N;26 a \        aclocal \\' /opt/rt-n56u/trunk/user/htop/Makefile
+        sed -i 'N;27 a \        autoconf \\' /opt/rt-n56u/trunk/user/htop/Makefile
+        sed -i 'N;28 a \        autoheader \\' /opt/rt-n56u/trunk/user/htop/Makefile
+        sed -i 'N;29 a \        automake --add-missing \\' /opt/rt-n56u/trunk/user/htop/Makefile
         cd /opt/rt-n56u/trunk
         if [ ! -f configs/templates/$TNAME.config ] ; then
         echo "configs/templates/$TNAME.config not found "
